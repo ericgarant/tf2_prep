@@ -9,6 +9,7 @@ The models/datasets in the exam are similar to the ones used in this script.
 """
 import tensorflow as tf
 from tensorflow.keras import datasets, layers
+from helper_functions import plot_loss_curves
 
 # Check version of TensorFlow (exam requires a certain version)
 # See for version: https://www.tensorflow.org/extras/cert/Setting_Up_TF_Developer_Certificate_Exam.pdf
@@ -44,10 +45,12 @@ model.compile(loss="sparse_categorical_crossentropy", # if labels aren't one-hot
 
 # Fit model
 print("Training model...")
-model.fit(x=train_images,
+history = model.fit(x=train_images,
           y=train_labels,
           epochs=10,
           validation_data=(test_images, test_labels))
+
+plot_loss_curves((history))
 
 # Evaluate model
 print("Evaluating model...")
